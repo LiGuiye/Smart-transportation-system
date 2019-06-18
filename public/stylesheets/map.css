@@ -1,0 +1,47 @@
+#mapDiv {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	padding-top: 50px;
+	z-index: -1;
+}
+
+
+#switch-div {
+	position: absolute;
+	right: 10px;
+	top: 70px;
+	z-index: 2;
+}
+
+#switch-div img {
+	width: 64px;
+	height: 64px;
+	border: 1px solid rgb(255, 255, 255);
+	border-radius: 2px;
+}
+
+#switch-div img:hover {
+	border: 1px solid rgba(0, 148, 255, 0.5);
+}
+
+#tools-div {
+	position: absolute;
+	top: 150px;
+	right: 10px;
+	z-index: 2;
+	width: 32px;
+}
+#tools-div img {
+	margin-top:10px;
+  width: 32px;
+	border: 1px solid rgb(255, 255, 255);
+	border-radius: 2px;
+	background-color: white;
+}
+
+#tools-div img:hover {
+	border: 1px solid rgba(0, 148, 255, 0.5);
+}
+
+

@@ -1,0 +1,18 @@
+<div class="header">
+	<div class="container">
+		<div class="header-top">			
+			<div class="search-in">
+				<div class="header-grid">
+					<ul>
+						<li><a href=""><%if(locals.islogin){%> <span class="glyphicon glyphicon-user">&nbsp;</span>欢迎:&nbsp;<%=test%></a></li>
+				    	<li><a class="btn" href="/logout"><span class="glyphicon glyphicon-log-out"></span>退出</a></li>
+				    	<%}else{%>
+				            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+				            <li><a href="/reg"><span class="glyphicon glyphicon-user"></span> 注册</a></li> 
+				    	<%}%>					
+					</ul>
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>

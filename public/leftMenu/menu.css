@@ -1,0 +1,123 @@
+.middle{
+	position: absolute;
+	padding-top: 50px: 
+}
+.middle .leftMenu {
+	width: 200px;
+	height: 100%;
+	background-color: black;
+	float: left
+}
+
+.middle .hidLeftMenu {
+	display: none;
+	margin-top: 160px;
+	width: 40px;
+	height: 100%;
+	background-color: black;
+	float: left;
+}
+
+.middle .hidLeftMenu .hidTitle {
+	color: white;
+	width: 20px;
+	margin-top: 10px;
+	line-height: 30px;
+	margin-left: 10px;
+	font-size: 17px
+}
+
+.middle .hidLeftMenu .openMenu {
+	margin-left: 12px;
+	margin-top:22px;
+	cursor: pointer
+}
+
+.middle .leftMenu .topMenu {
+	padding-top: 50px;
+	height: 42px;
+	background-color: #586065
+}
+
+.middle .leftMenu .topMenu img {
+	margin: 10px;
+	float: left;
+
+}
+
+.middle .leftMenu .topMenu .changeMenu {
+	cursor: pointer
+}
+
+.middle .leftMenu .topMenu .banshi {
+	padding-left: 3px
+}
+
+.middle .leftMenu .topMenu .menuTitle {
+	text-align: center;
+	color: #f2f2f2;
+	float: left;
+	line-height: 42px;
+	font-size: 16px;
+	width: 120px
+}
+#hidIcon{
+	position: absolute;
+	margin-left: 1px; 
+}
+.menu_list {
+	width: 200px;
+	background: black
+}
+
+.menu_list ul li {
+	display: block;
+	text-align: center;
+	width: 100%
+}
+
+.menu_list ul li .content {
+	width: 100%;
+	height: auto;
+	float: left
+}
+
+.menu_list ul li .content .zcd {
+	color: #f2f2f2;
+	font-size: 14px;
+	height: 60px;
+	background-color: #586065;
+	margin-bottom: 2px;
+	cursor: pointer;
+	line-height: 60px;
+	text-align: center;
+	width: 200px;
+	display: block
+}
+
+.content {
+	height: 200px;
+	display: none
+}
+
+.menu_list ul li .content .zcd:hover {
+	color: #fff;
+	background-color: #555
+}
+/* 标签被选中时的样式 */
+.removes {
+	color: #0fb9ef !important;
+	border-left: 16px solid #0fb9ef
+}
+
+.menu_list ul li .fuMenu {
+	color: #f2f2f2;
+	font-size: 14px;
+	cursor: pointer;
+	height: 60px;
+	line-height: 60px;
+	text-align: center;
+	width: 200px;
+	border-bottom: 2px solid #586065;
+	float: left
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>光谷智慧交通系统Group4</title>
+		<!-- header&nav -->
+		<link rel="stylesheet" href="stylesheets/reset.css" />
+		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+		<link rel="stylesheet" href="stylesheets/head.css" />
+		<!-- map -->
+		<link rel="stylesheet" type="text/css" href="stylesheets/map.css" />
+		<link rel="stylesheet" href="libs/ol/ol.css" />
+		<script type="text/javascript" src="libs/ol/ol-debug.js"></script>
+		<script type="text/javascript" src="libs/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="libs/zondyClient.js"></script>
+		<!-- leftMenu -->
+		<link rel="stylesheet" type="text/css" href="/leftMenu/public.css">
+		<link rel="stylesheet" type="text/css" href="/leftMenu/menu.css">
+		<script type="text/javascript" src="/leftMenu/menu.js"></script>
+<!-- 		<script src="/leftMenu/jquery-1.10.2.js.download"></script>
+		<script src="/leftMenu/jquery.min.js.download"></script> -->
+		<style id="PDFTStyle" type="text/css">
+			.qtip-content {
+				font-family: "宋体";
+				font-size: 17px;
+				line-height: 19px;
+			}
+			.qtip-max-width {
+				max-width: 300px;
+			}
+		</style>
+		
+	</head>
+
+	<body>
+		<!-- 左侧图层控制栏 -->
+		<div class="middle">
+			<div class="hidLeftMenu" style="display: block;">
+				<img class="openMenu" src="./leftMenu/open.png">
+				<p class="hidTitle">地图图层列表</p>
+			</div>
+		
+			<div class="leftMenu" style="margin-left: -220px; display: none;">
+				<div class="topMenu">
+					<img class="banshi" src="./leftMenu/banshidating.png">
+					<p class="menuTitle">地图文档索引</p>
+					<img class="changeMenu" src="./leftMenu/shouqicaidan.png" id="hidIcon">
+				</div>
+				<div class="menu_list">
+					<ul id = "list">
+<!-- 						<li class="lis">
+							<p class="fuMenu" id="docName">武汉名吃</p>
+							<div class="content" id="content">
+								<p class="zcd" id="zcd1">老通城的三鲜豆皮</p>
+								<p class="zcd" id="zcd2">四季美的汤包</p>
+								<p class="zcd" id="zcd3">蔡林记的热干面</p>
+								<p class="zcd" id="zcd4">顺香居的烧麦</p>
+								<p class="zcd" id="zcd5">福庆和的牛肉豆丝</p>
+								<p class="zcd" id="zcd6">小桃园的煨汤</p>
+								<p class="zcd" id="zcd7">田启恒的糊汤粉</p>
+								<p class="zcd" id="zcd8">谢荣德的面窝</p>
+							</div>
+						</li> -->
+						
+					</ul>
+				</div>
+			</div>
+		
+		</div>
+		<!-- /* 导航 */ -->
+		<header class="header">
+			<div class="container clearfix">
+				<div class="fl left">
+					<a href="javascript:void(0)"><img src="/images/logo.png" alt="logo" class="img1" /><span>光谷智慧交通系统</span></a>
+				</div>
+				<div class="fr nav">
+					<ul class="navbar_nav" data-in="fadeInDown" data-out="fadeOutUp">
+						<li class="active">
+							<a href="javascript:void(0)">实时路况</a>
+						</li>
+
+						<li class="dropdown">
+							<a href="javascript:void(0)">摄像头</a>
+						</li>
+
+						<li class="dropdown">
+							<a href="javascript:void(0)">事件添加</a>
+						</li>
+
+						<li class="dropdown">
+							<a href="javascript:void(0)">事件查询</a>
+							<div class="dropdown_menu">
+								<a href="#">周边查询</a>
+								<a href="#">模糊查询</a>
+							</div>
+						</li>
+
+						<li class="dropdown">
+							<a href="javascript:void(0)">事件更新</a>
+						</li>
+
+						<li class="dropdown">
+							<a href="javascript:void(0)">事件分析</a>
+							<div class="dropdown_menu">
+								<a href="#">统计图</a>
+								<a href="#">热力图</a>
+							</div>
+						</li>
+
+						<li class="dropdown">
+							<a href="javascript:void(0)">施工公告</a>
+						</li>
+
+						<li><a href="">
+								<%if(locals.islogin){%> <span class="glyphicon glyphicon-user">&nbsp;</span>欢迎:&nbsp;
+								<%=test%></a></li>
+						<%}else{%>
+						<li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+						<li><a href="/reg"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
+						<%}%>
+						<li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>退出</a></li>
+
+					</ul>
+				</div>
+			</div>
+		</header>
+		<!-- 地图框 -->
+		<div id="mapDiv"></div>
+		<!-- 切换底图按钮 -->
+		<div id="switch-div">
+			<img src="/images/vec.png" onclick="sl()" />
+			<img src="./images/img.png" onclick="yx()" />
+		</div>
+		<div id="tools-div">
+			<img src="/images/tools/distance.png" onclick="" />
+			<img src="/images/tools/area.png" onclick="" />
+			<img src="/images/tools/print.png" onclick="" />
+			<img src="/images/tools/quit.png" onclick="" />
+		</div>
+
+	</body>
+	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+	<script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
+	<script src="javascripts/swiper.min.js"></script>
+	<!-- map -->
+	
+	<script type="text/javascript" src="javascripts/map.js"></script>
+<script type="text/javascript" src="/leftMenu/menu.js"></script>
+</html>
+</html>

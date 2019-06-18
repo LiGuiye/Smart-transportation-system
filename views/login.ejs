@@ -1,0 +1,40 @@
+<!DOCTYPE html> 
+<html lang="zh-CN"> 
+<head> 
+<meta charset="UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<!-- 登陆注册页面的样式 -->
+	<link rel="stylesheet" href="/stylesheets/style2.css">
+	<title>光谷智慧交通Group4</title>
+</head> 
+<body style="background-image:url(images/bg.jpg) ;">
+		<div class="login-container">
+			<h1>光谷智慧交通系统</h1>
+			<div class="connect">
+				<p>Group4</p>
+			</div>
+			<form action="" method="post" id="loginForm">
+				<div>
+					<input type="text" name="username" class="username" placeholder="用户名" autocomplete="off" />
+				</div>
+				<div>
+					<input type="password" name="password" class="password" placeholder="密码" oncontextmenu="return false" onpaste="return false" />
+				</div>
+				<button id="submit" type="submit">登 陆</button>
+			</form>
+
+			<a href="/reg">
+				<button type="button" class="register-tis">还有没有账号？</button>
+			</a>
+		</div>
+		<script src="/javascripts/jquery.min.js"></script>
+		<script src="/javascripts/common.js"></script>
+		<!--表单验证-->
+		<script src="/javascripts/jquery.validate.min.js?var1.14.0"></script>
+	</body>
+
+<%- include footer %>
+
+</html>

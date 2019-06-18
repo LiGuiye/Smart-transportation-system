@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html style="padding-bottom: 54px;">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title>手风琴菜单css3原生jsrem适配左侧竖排导航</title>
+		<meta name="description" content="样式和效果还可以的使用的rem适配兼容ie" />
+		<meta name="keywords" content="手风琴，菜单，导航，侧导航，rem，原生，左侧导航，css3，手风琴菜单，jquery,jquery插件" />
+		<link rel="Shortcut icon" href="//www.jq22.com/favicon.ico" />
+		<link href="css/demo.css?v3" rel="stylesheet" media="all" />
+
+		<style>
+			.fdad a {
+            color: #000;
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .fdad {
+            top: 66px;
+        }
+
+        .xgcj li {
+            font-size: 14px;
+            line-height: 20px;
+            list-style-type: none;
+            transition: all 1s ease 0s;
+            border-radius: 5px;
+        }
+
+            .xgcj li:hover {
+                background-color: #e4e4e4;
+            }
+
+        .xgcj {
+            background-color: rgba(255,255,255,.3);
+            overflow-x: hidden;
+        }
+
+            .xgcj ul {
+                padding: 10px
+            }
+
+            .xgcj h3 {
+                line-height: 30px;
+            }
+
+            .xgcj p {
+                padding-left: 20px;
+                font-size: 13px;
+                display: none;
+            }
+
+            .xgcj span {
+                font-family: "宋体";
+            }
+
+            .xgcj li:hover p {
+                display: block;
+            }
+    </style>
+		<script type="text/javascript">
+			var txt = "http://www.jq22.com/demo/jqsfq201803071121";
+			window.g1 = txt.substr(0, 3);
+			window.g2 = txt.substr(0, 19);
+		</script>
+		<script src="js/pace.min.js" charset="gbk"></script>
+		<link href="css/pace-theme-barber-shop.css" rel="stylesheet" />
+		<script src="https://libs.baidu.com/jquery/1.7.0/jquery.min.js"></script>
+		<script src="js/jquery.qrcode.min.js"></script>
+		<script type="text/javascript">
+			var theme_list_open = false;
+
+			$(document).ready(function() {
+				function fixHeight() {
+					var headerHeight = $("#switcher").height();
+					$("#iframe").attr("height", $(window).height() - 54 + "px");
+				}
+				$(window).resize(function() {
+					fixHeight();
+				}).resize();
+
+				$('.icon-monitor').addClass('active');
+
+				$(".icon-mobile-3").click(function() {
+					$("#by").css("overflow-y", "auto");
+					$('#iframe-wrap').removeClass().addClass('mobile-width-3');
+					$('.icon-tablet,.icon-mobile-1,.icon-monitor,.icon-mobile-2,.icon-mobile-3').removeClass('active');
+					$(this).addClass('active');
+					return false;
+				});
+
+				$(".icon-mobile-2").click(function() {
+					$("#by").css("overflow-y", "auto");
+					$('#iframe-wrap').removeClass().addClass('mobile-width-2');
+					$('.icon-tablet,.icon-mobile-1,.icon-monitor,.icon-mobile-2,.icon-mobile-3').removeClass('active');
+					$(this).addClass('active');
+					return false;
+				});
+
+				$(".icon-mobile-1").click(function() {
+					$("#by").css("overflow-y", "auto");
+					$('#iframe-wrap').removeClass().addClass('mobile-width');
+					$('.icon-tablet,.icon-mobile,.icon-monitor,.icon-mobile-2,.icon-mobile-3').removeClass('active');
+					$(this).addClass('active');
+					return false;
+				});
+
+				$(".icon-tablet").click(function() {
+					$("#by").css("overflow-y", "auto");
+					$('#iframe-wrap').removeClass().addClass('tablet-width');
+					$('.icon-tablet,.icon-mobile-1,.icon-monitor,.icon-mobile-2,.icon-mobile-3').removeClass('active');
+					$(this).addClass('active');
+					return false;
+				});
+
+				$(".icon-monitor").click(function() {
+					$("#by").css("overflow-y", "hidden");
+					$('#iframe-wrap').removeClass().addClass('full-width');
+					$('.icon-tablet,.icon-mobile-1,.icon-monitor,.icon-mobile-2,.icon-mobile-3').removeClass('active');
+					$(this).addClass('active');
+					return false;
+				});
+			});
+		</script>
+
+	</head>
+	<body id="by" style="overflow-y: hidden">
+
+		<div id="iframe-wrap">
+			<iframe id="iframe" src="http://www.jq22.com/demo/jqsfq201803071121" frameborder="0" width="100%"></iframe>
+		</div>
+
+	</body>
+</html>
