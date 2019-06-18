@@ -1,8 +1,9 @@
 .middle{
 	position: absolute;
-	padding-top: 50px: 
+	padding-top: 50px;
 }
 .middle .leftMenu {
+	margin-top:100px;
 	width: 200px;
 	height: 100%;
 	background-color: black;
@@ -34,7 +35,6 @@
 }
 
 .middle .leftMenu .topMenu {
-	padding-top: 50px;
 	height: 42px;
 	background-color: #586065
 }
@@ -77,6 +77,7 @@
 }
 
 .menu_list ul li .content {
+	margin-top:-10px;
 	width: 100%;
 	height: auto;
 	float: left
@@ -87,7 +88,7 @@
 	font-size: 14px;
 	height: 60px;
 	background-color: #586065;
-	margin-bottom: 2px;
+	margin-bottom: 1px;
 	cursor: pointer;
 	line-height: 60px;
 	text-align: center;
@@ -112,12 +113,11 @@
 
 .menu_list ul li .fuMenu {
 	color: #f2f2f2;
-	font-size: 14px;
+	font-size: 15px;
 	cursor: pointer;
-	height: 60px;
 	line-height: 60px;
 	text-align: center;
 	width: 200px;
-	border-bottom: 2px solid #586065;
+	border-bottom: 0px solid #586065;
 	float: left
 }

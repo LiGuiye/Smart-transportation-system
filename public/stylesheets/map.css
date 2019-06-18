@@ -6,6 +6,21 @@
 	z-index: -1;
 }
 
+/* 自定义鼠标位置控件位置样式 */
+#mouse-position {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: 5px;
+	z-index: 2000;
+}
+
+/* 自定义鼠标位置信息样式 */
+.custom-mouse-position {
+	color: red;
+	font-size: 16px;
+	font-family: "微软雅黑";
+}
 
 #switch-div {
 	position: absolute;
@@ -32,9 +47,10 @@
 	z-index: 2;
 	width: 32px;
 }
+
 #tools-div img {
-	margin-top:10px;
-  width: 32px;
+	margin-top: 10px;
+	width: 32px;
 	border: 1px solid rgb(255, 255, 255);
 	border-radius: 2px;
 	background-color: white;
@@ -44,4 +60,22 @@
 	border: 1px solid rgba(0, 148, 255, 0.5);
 }
 
+#lefttools-div{
+	position: absolute;
+	top: 70px;
+	left: 10px;
+	z-index: 1;
+	width: 140px;
+}
+#lefttools-div img {
+	margin-top: 10px;
+	width: 40px;
+	height: 40px;
+	border: 1px solid rgb(255, 255, 255);
+	border-radius: 2px;
+	background-color: white;
+}
 
+#lefttools-div img:hover {
+	border: 1px solid rgba(0, 148, 255, 0.5);
+}

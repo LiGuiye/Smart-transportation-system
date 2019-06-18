@@ -19,8 +19,6 @@
 		<link rel="stylesheet" type="text/css" href="/leftMenu/public.css">
 		<link rel="stylesheet" type="text/css" href="/leftMenu/menu.css">
 		<script type="text/javascript" src="/leftMenu/menu.js"></script>
-<!-- 		<script src="/leftMenu/jquery-1.10.2.js.download"></script>
-		<script src="/leftMenu/jquery.min.js.download"></script> -->
 		<style id="PDFTStyle" type="text/css">
 			.qtip-content {
 				font-family: "宋体";
@@ -31,17 +29,23 @@
 				max-width: 300px;
 			}
 		</style>
-		
 	</head>
-
 	<body>
+		<!-- 放大缩小和复位 -->
+		<div id = "lefttools-div">
+			<img id="zoomin" src="/images/tools/zoomin.png" />
+			<img id="zoomout" src="/images/tools/zoomout.png" />
+			<img id="restore" src="/images/tools/restore.png"  />
+		</div>
+
+		<!-- 经纬度控件位置 -->
+		<div id="mouse-position"></div>
 		<!-- 左侧图层控制栏 -->
 		<div class="middle">
 			<div class="hidLeftMenu" style="display: block;">
 				<img class="openMenu" src="./leftMenu/open.png">
 				<p class="hidTitle">地图图层列表</p>
 			</div>
-		
 			<div class="leftMenu" style="margin-left: -220px; display: none;">
 				<div class="topMenu">
 					<img class="banshi" src="./leftMenu/banshidating.png">
@@ -50,24 +54,9 @@
 				</div>
 				<div class="menu_list">
 					<ul id = "list">
-<!-- 						<li class="lis">
-							<p class="fuMenu" id="docName">武汉名吃</p>
-							<div class="content" id="content">
-								<p class="zcd" id="zcd1">老通城的三鲜豆皮</p>
-								<p class="zcd" id="zcd2">四季美的汤包</p>
-								<p class="zcd" id="zcd3">蔡林记的热干面</p>
-								<p class="zcd" id="zcd4">顺香居的烧麦</p>
-								<p class="zcd" id="zcd5">福庆和的牛肉豆丝</p>
-								<p class="zcd" id="zcd6">小桃园的煨汤</p>
-								<p class="zcd" id="zcd7">田启恒的糊汤粉</p>
-								<p class="zcd" id="zcd8">谢荣德的面窝</p>
-							</div>
-						</li> -->
-						
 					</ul>
 				</div>
 			</div>
-		
 		</div>
 		<!-- /* 导航 */ -->
 		<header class="header">
