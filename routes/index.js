@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var pgclient = require('dao/pgHelper');
 pgclient.getConnection();
+var db = require('./db');
+
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -89,4 +91,5 @@ router.route('/reg')
 		});
 	});
 
+router.get('/suoyou', db.getAllPath);
 module.exports = router;
