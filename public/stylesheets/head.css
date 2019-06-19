@@ -89,7 +89,7 @@
 	background: #fff;
 	box-shadow: 0 15px 27px 0 rgba(167,165,165,0.38);
 	width: 100%;
-	border-radius:10px;
+	/* border-radius:10px; */
 	
 }
 .header .navbar_nav li.dropdown .dropdown_menu a{

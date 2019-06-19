@@ -140,6 +140,16 @@ $(function() {
 			document.getElementById("heatMap").className = "showLukuang";
 		}
 	}
+	
+	document.getElementById("camera").onclick = function() {
+		if (document.getElementById("camera").className == "showLukuang") {
+			cameraClose();
+			document.getElementById("camera").className = "hideLukuang";
+		} else {
+			cameraOpen();
+			document.getElementById("camera").className = "showLukuang";
+		}
+	}
 
 });
 /////////////////// 功能封装//////////////////////////////
