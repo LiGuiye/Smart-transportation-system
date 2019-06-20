@@ -113,6 +113,13 @@
 
 						<li class="dropdown">
 							<a href="javascript:void(0)">施工公告</a>
+							<div class="dropdown_menu">
+								<a onclick="addplogon()">选择区域</a>
+								<a onclick="clipByLayerAnalysis1()">裁剪道路</a>
+								<a onclick="singleBuffAnalysis('rad')">道路缓冲</a>
+								<a onclick="clipByLayerAnalysis()">裁剪结果</a>
+								<a onclick="clearA()">清除结果</a>
+							</div>
 						</li>
 
 						<li><a href="">
@@ -167,7 +174,7 @@
 			</div><!-- /.modal -->
 		</div>
 		<!-- popup -->
-		<div id="popup" class="ol-popup" >
+		<div id="popup" class="ol-popup" style="z-index: 1;">
 			<div id="popup-content"></div>
 			<a href="#" id="popup-closer" class="ol-popup-closer"></a>
 			<video id = "video" width="280" height="216" autoplay="autoplay" controls>
@@ -175,11 +182,22 @@
 			</video>
 		</div>
 
+
+<!-- 施工公告 -->
+    <div id="preview" style="display: none; text-align: center; padding-top: 250px;font-weight:bold">
+        <!-- <img src="i" alt='' /><br /><br /> -->
+        <span>正在缓冲区分析，请稍候</span>
+    </div>
+
+
+
 	</body>
 	<!-- map -->
+	
 	<script type="text/javascript" src="javascripts/map.js"></script>
 	<script type="text/javascript" src="javascripts/measure.js"></script>
 	<script type="text/javascript" src="javascripts/camera.js"></script>
+	<script type="text/javascript" src="javascripts/LineBuffer.js"></script>	
 
 </html>
 </html>

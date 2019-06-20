@@ -14,26 +14,34 @@ $(function() {
 	TiandiMap_vec = new ol.layer.Tile({
 		name: "天地图矢量图层",
 		source: new ol.source.XYZ({
-			url: "http://t0.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=82793a95ac2fab6ddfe33ef84959b8db",
-			wrapX: false
+			crossOrigin: "Anonymous",
+			url: "http://t0.tianditu.gov.cn/DataServer?T=vec_c&x={x}&y={y}&l={z}&tk=82793a95ac2fab6ddfe33ef84959b8db",
+			wrapX: false,
+			minZoom: 1,
+			maxZoom: 18,
+			projection: "EPSG:4326"
 		})
 	});
 	TiandiMap_img = new ol.layer.Tile({
 		name: "天地图影像图层",
 		source: new ol.source.XYZ({
-			url: "http://t0.tianditu.com/DataServer?T=img_w&x={x}&y={y}&l={z}&tk=17639536739fc8adc5d0b8cd59fc2d3b",
-			wrapX: false
+			crossOrigin: "Anonymous",
+			url: "http://t0.tianditu.gov.cn/DataServer?T=img_c&x={x}&y={y}&l={z}&tk=17639536739fc8adc5d0b8cd59fc2d3b",
+			wrapX: false,
+			minZoom: 1,
+			maxZoom: 18,
+			projection: "EPSG:4326"
 		})
 	});
 
 	view = new ol.View({
 		projection: 'EPSG:4326',
-		zoom: 12,
-		center: [(114.32110382470053 + 114.41798540197931) / 2, (30.46038194250228 + 30.52896194250228) / 2]
+		zoom: 13,
+		center: [(114.321103824701 + 114.417985401979) / 2, (30.4545175015849 + 30.5289619425023) / 2]
 	});
 	map = new ol.Map({
 		target: "mapDiv",
-		layers: [TiandiMap_vec, TiandiMap_img],
+		layers: [ TiandiMap_img,TiandiMap_vec],
 		view: view,
 		controls: ol.control.defaults({
 			attribution: false,
@@ -52,6 +60,7 @@ $(function() {
 
 	measureSource = new ol.source.Vector();
 	var measureLayer = new ol.layer.Vector({
+		// crossOrigin: "Anonymous",
 		source: measureSource,
 		style: new ol.style.Style({ //图层样式
 			fill: new ol.style.Fill({
@@ -70,10 +79,7 @@ $(function() {
 		})
 	});
 	map.addLayer(measureLayer);
-	//地图视图的初始参数
-	var viewRes = map.getView();
-	var zoomRes = viewRes.getZoom();
-	var centerRes = viewRes.getCenter();
+
 	//单击放大按钮功能
 	$('#zoomin').click(function() {
 		var view = map.getView();
@@ -91,9 +97,9 @@ $(function() {
 		//获取地图视图
 		var view = map.getView();
 		//设置初始中心点
-		view.setCenter(centerRes);
+		view.setCenter([(114.321103824701 + 114.417985401979) / 2, (30.4545175015849 + 30.5289619425023) / 2]);
 		//设置初始缩放级数
-		view.setZoom(zoomRes);
+		view.setZoom(13);
 	});
 	// 导出地图
 	document.getElementById('dc').addEventListener('click', function() {
@@ -168,9 +174,10 @@ function yx() {
 function getMapDocSuccess(data) {
 	if (data.DOCNames.length > 0) {
 		var create = '<li class="lis">';
-		for (var i = 0; i < data.DOCNames.length; i++) {
-			create += '<p class="fuMenu" id="docName">' + data.DOCNames[i] + '</p>';
-		}
+		// for (var i = 0; i < data.DOCNames.length; i++) {
+		// 	create += '<p class="fuMenu" id="docName">' + data.DOCNames[i] + '</p>';
+		// }
+		create += '<p class="fuMenu" id="docName">' + data.DOCNames[0] + '</p>';
 		create += '</li>';
 		addMapDoc(data.DOCNames[0]);
 		changeExtent(data.DOCNames[0])
@@ -183,11 +190,12 @@ function getMapDocSuccess(data) {
 function getInfoError(data) {
 	alert("请求失败，请检查参数！");
 }
-//添加底图文档至底图
+//添加地图文档至底图
 function addMapDoc(val) {
 	mapdoc = new Zondy.Map.Doc(val, val, {
 		ip: ip,
 		port: port,
+		crossOrigin: "Anonymous",
 	});
 	map.addLayer(mapdoc);
 }
@@ -244,7 +252,6 @@ function selectShow() {
 		mapdoc.refresh();
 	});
 }
-
 function removeSelect(arry, val) {
 	for (var key = 0; key < arry.length; key++) {
 		if (arry[key] == val) {
@@ -257,11 +264,18 @@ function removeSelect(arry, val) {
 
 //实时路况
 function lukuang() {
+		lukuangLayer = new Zondy.Map.Layer('', ['gdbp://MapGisLocal/wuhan/sfcls/new实时路况'], {
+		crossOrigin: "Anonymous",
+		ip: ip,
+		port: port
+	});
+	map.addLayer(lukuangLayer);
 	// 先删除原有路况,并添加至图层
 	deleteLine()
 	// 查询数据库更新路况并刷新
 	selectLine();
 	lukuangLayer.refresh();
+
 }
 
 function removeLukuang() {
@@ -300,19 +314,13 @@ function ajaxSuccess(data) {
 
 function deleteLine() {
 	//执行删除要素操作
-	var deleteService = new Zondy.Service.EditLayerFeature("gdbp://MapGisLocal/wuhan/sfcls/实时路况", {
+	var deleteService = new Zondy.Service.EditLayerFeature("gdbp://MapGisLocal/wuhan/sfcls/new实时路况", {
 		ip: ip,
 		port: port
 	});
 	for (var i; i < 48; i++) {
 		deleteService.deletes(i, onLineSuccess);
 	}
-
-	lukuangLayer = new Zondy.Map.Layer('', ['gdbp://MapGisLocal/wuhan/sfcls/实时路况'], {
-		ip: ip,
-		port: port
-	});
-	map.addLayer(lukuangLayer);
 }
 //执行添加线要素功能
 function addLine(pointArry, datetimes, road, vehicleflow) {
@@ -326,7 +334,7 @@ function addLine(pointArry, datetimes, road, vehicleflow) {
 	var fGeom = new Zondy.Object.FeatureGeometry({
 		LinGeom: [gline]
 	});
-	//随机输出1~8之间的整数,作为新添加的要素的颜色号
+	//根据流量选择颜色
 	var lineColor;
 	if (parseInt(vehicleflow) < 760) {
 		lineColor = 7;
@@ -375,7 +383,7 @@ function addLine(pointArry, datetimes, road, vehicleflow) {
 	//将添加的线要素添加到属性数据集中
 	featureSet.addFeature(newFeature);
 	//创建一个图层编辑对象
-	var editLayerFeature = new Zondy.Service.EditLayerFeature("gdbp://MapGisLocal/wuhan/sfcls/实时路况", {
+	var editLayerFeature = new Zondy.Service.EditLayerFeature("gdbp://MapGisLocal/wuhan/sfcls/new实时路况", {
 		ip: ip,
 		port: port
 	});
@@ -403,8 +411,8 @@ function toechart() {
 	queryParam.recordNumber = 100;
 	//实例化地图文档查询服务对象
 	var queryService = new Zondy.Service.QueryDocFeature(queryParam, "光谷智慧交通", 3, {
-		ip: "localhost",
-		port: "6163"
+		ip: ip,
+		port:port
 	});
 	queryService.query(function success(data) {
 		var Jan = Feb = Mar = Apr = May = June = July = Aug = Sep = Oct = Nov = Dec = 0;
@@ -494,9 +502,9 @@ function heatmap() {
 	});
 	queryParam.where = "事件等级>0";
 	//实例化地图文档查询服务对象
-	var queryService = new Zondy.Service.QueryDocFeature(queryParam, "热力图", 0, {
-		ip: "localhost",
-		port: "6163"
+	var queryService = new Zondy.Service.QueryDocFeature(queryParam, "光谷智慧交通", 3, {
+		ip: ip,
+		port: port
 	});
 	queryService.query(function(result) {
 		//初始化Zondy.Format.PolygonJSON类
@@ -509,6 +517,7 @@ function heatmap() {
 		}
 		//Heatmap图层
 		heatmapVector = new ol.layer.Heatmap({
+			crossOrigin: "Anonymous",
 			//矢量数据源（读取本地的KML数据）
 			source: new ol.source.Vector({
 				features: features

@@ -1,6 +1,7 @@
 .middle{
 	position: absolute;
 	padding-top: 50px;
+	z-index: 1000;
 }
 .middle .leftMenu {
 	margin-top:100px;
