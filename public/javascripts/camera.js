@@ -5,11 +5,12 @@ var layerIndex = 2;
 var zb;
 var vidoe;
 //创建绘图控件
-var draw;
+var drawCamera;
 //矢量标注图层
 var vectorLayer;
 //弹框图层
-var popup;
+var camerapopup;
+var cameraBoxpopup;
 //设置红色icon标注的样式
 var createLabelStyle = function(feature) {
 			return new ol.style.Style({
@@ -45,21 +46,21 @@ var createLabelStyle = function(feature) {
 //只显示摄像头图层
 function cameraOpen() {
 	//创建绘图控件
-	draw = new ol.interaction.Draw({
+	drawCamera = new ol.interaction.Draw({
 		type: "Point",
 	});
-	map.addInteraction(draw);
+	map.addInteraction(drawCamera);
 	//注册绘制结束的监听事件
-	draw.on('drawend', drawControlback);
+	drawCamera.on('drawend', drawCameraControlback);
 }
 function cameraClose() {
-	map.removeInteraction(draw);
+	map.removeInteraction(drawCamera);
 	map.removeLayer(vectorLayer);
-	map.removeOverlay(popup);
+	// map.removeOverlay(popup);
 	console.log("camera已关闭")
 }
 //执行点击查询
-function drawControlback(data) {
+function drawCameraControlback(data) {
 	//初始化查询结构对象，设置查询结构包含几何信息
 	var queryStruct = new Zondy.Service.QueryFeatureStruct();
 	//是否包含几何图形信息
@@ -102,13 +103,12 @@ function drawControlback(data) {
 		port: port
 	});
 	//执行查询操作，querySuccess为查询回调函数
-	queryService.query(querySuccess, queryError);
+	queryService.query(queryCameraSuccess, queryError);
 }
 //查询成功回调
-function querySuccess(result) {
-	
+function queryCameraSuccess(result) {
 	//每点第二次的时候清除上一次的popup和icon
-	document.getElementById("popup").style.opacity =1;
+	document.getElementById("camerapopup").style.opacity =1;
 	map.removeLayer(vectorLayer);
 	if (result.TotalCount) {
 		//初始化Zondy.Format.PolygonJSON类
@@ -149,16 +149,17 @@ function querySuccess(result) {
 		});
 		//矢量标注图层
 		vectorLayer = new ol.layer.Vector({
+			crossOrigin: "Anonymous",
 			source: vectorSource
 		});
 		map.addLayer(vectorLayer);
 
 		//实现popup的html元素
-        var container = document.getElementById('popup');
+        var container = document.getElementById('camerapopup');
         var content = document.getElementById('popup-content');
         var closer = document.getElementById('popup-closer');
 		content.innerHTML = ars;
-		popup = new ol.Overlay({
+		cameraBoxpopup = new ol.Overlay({
 			//要转换成overlay的HTML元素
 			element: container,
 			//当前窗口可见
@@ -172,19 +173,18 @@ function querySuccess(result) {
 				duration: 250
 			}
 		});
-		popup.setPosition(zb);
-		map.addOverlay(popup);
+		cameraBoxpopup.setPosition(zb);
+		map.addOverlay(cameraBoxpopup);
 		//添加关闭按钮的单击事件（隐藏popup）
 		closer.onclick = function() {
 			// //未定义popup位置
-			popup.setPosition(undefined);
+			cameraBoxpopup.setPosition(undefined);
 			//失去焦点
 			closer.blur();
 			return false;
 		};
 	}
 }
-
 //查询失败回调
 function queryError(e) {
 	alert("查询失败!");

@@ -30,6 +30,7 @@
 		<link rel="stylesheet" href="stylesheets/camera.css" />
 		<script type="text/javascript" src="libs/jsonformat/json2.js"></script>
 		<script type="text/javascript" src="libs/jsonformat/jsonExtend.js"></script>
+		<link rel="stylesheet" href="stylesheets/search.css" />
 		<style id="PDFTStyle" type="text/css">
 			.qtip-content {
 				font-family: "宋体";
@@ -50,7 +51,6 @@
 			<img id="zoomout" src="/images/tools/zoomout.png" />
 			<img id="restore" src="/images/tools/restore.png" />
 		</div>
-
 		<!-- 经纬度控件位置 -->
 		<div id="mouse-position"></div>
 		<!-- 左侧图层控制栏 -->
@@ -88,19 +88,19 @@
 						</li>
 
 						<li class="dropdown">
-							<a href="javascript:void(0)">事件添加</a>
+							<a id="addEvent">事件添加</a>
 						</li>
 
 						<li class="dropdown">
 							<a href="javascript:void(0)">事件查询</a>
 							<div class="dropdown_menu">
-								<a href="#">周边查询</a>
-								<a href="#">模糊查询</a>
+								<a id="zbcx">周边查询</a>
+								<a id="sscx">模糊查询</a>
 							</div>
 						</li>
 
 						<li class="dropdown">
-							<a href="javascript:void(0)">事件更新</a>
+							<a id="update">事件更新</a>
 						</li>
 
 						<li class="dropdown">
@@ -148,9 +148,9 @@
 			<img src="/images/tools/area.png" onclick="openMeasureTool('Polygon')" />
 			<img src="/images/tools/print.png" id="dc" />
 			<img src="/images/tools/quit.png" onclick="closeMeasureTool()" />
-			<label class="checkbox"><input type="checkbox" id="geodesic" />使用测地学方法测量</label>
+			<!-- <label class="checkbox"><input type="checkbox" id="geodesic" />使用测地学方法测量</label> -->
 		</div>
-		<!-- 模态框（Modal） -->
+		<!-- 统计图的模态框（Modal） -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -159,45 +159,143 @@
 							&times;
 						</button>
 						<h4 class="modal-title" id="myModalLabel">
-							模态框（Modal）标题
 						</h4>
 					</div>
 					<div class="modal-body" id="container">
-						在这里添加一些文本
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 						</button>
 
 					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal -->
+				</div>
+			</div>
 		</div>
 		<!-- popup -->
-		<div id="popup" class="ol-popup" style="z-index: 1;">
+		<div id="camerapopup" class="ol-popup" style="z-index: 1;">
 			<div id="popup-content"></div>
 			<a href="#" id="popup-closer" class="ol-popup-closer"></a>
-			<video id = "video" width="280" height="216" autoplay="autoplay" controls>
+			<video id="video" width="280" height="216" autoplay="autoplay" controls>
 				<source id="videoTools" type="video/mp4">
 			</video>
 		</div>
-
-
-<!-- 施工公告 -->
-    <div id="preview" style="display: none; text-align: center; padding-top: 250px;font-weight:bold">
-        <!-- <img src="i" alt='' /><br /><br /> -->
-        <span>正在缓冲区分析，请稍候</span>
-    </div>
-
-
+		<!-- 事件更新的模态框 -->
+		<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="myModalLabel">
+									事件更新
+								</h4>
+							</div>
+							<div class="modal-body" id="querycontent">
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+								</button>
+								<button type="button" class="btn btn-primary" id="upload" onclick="upload()">
+									提交更改
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+		<!-- 事件添加的模态框 -->
+		<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+			<div class="modal-dialog">
+				<div class="modal-content" >
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							事件添加
+						</h4>
+					</div>
+					<div class="modal-body">
+						<table border="1"cellspacing="0" cellpadding="0" width="90%" align="center">
+					 	<tr align="center">
+						 	<td>事件编号</td>
+						 	<td><input type="text" id="a"></td>
+						</tr>
+					 	<tr align="center">
+						 	<td>事件类型</td>
+						 	<td><input type="text" id="b"></td>
+						</tr>
+						<tr align="center">
+						 	<td>事件等级</td>
+						 	<td>
+						 		<select id="c">
+						 			<option>1</option>
+						 			<option>2</option>
+						 			<option>3</option>
+						 			<option>4</option>
+						 		</select>
+						 	</td>
+						</tr>
+						<tr align="center">
+						 	<td>发生时间</td>
+						 	<td><input type="text" id="d"></td>
+						</tr>
+						<tr align="center">				
+						 	<td>发生地点</td>				 
+						 	<td><input type="text" id="e"></td>
+						</tr>
+						<tr align="center">				
+						 	<td>车牌号</td>				 
+						 	<td><input type="text" id="f"></td>
+						</tr>
+						<tr align="center">				
+						 	<td>驾驶员</td>				 
+						 	<td><input type="text" id="g"></td>
+						</tr>
+						<tr align="center">				
+						 	<td>处理状态</td>				 
+						 	<td>
+						 		<select id="h">
+						 			<option>待处理</option>
+						 			<option>处理中</option>
+						 			<option>已归档</option>
+						 		</select>
+						 	</td>
+						</tr>
+					</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary" onclick="addPoint()">提交</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 施工公告 -->
+		<div id="preview" style="display: none; text-align: center; padding-top: 250px;font-weight:bold">
+			<span>正在缓冲区分析，请稍候</span>
+		</div>
+		<!-- 查询按钮，待修改样式 -->
+		<span id="searchbtn" class="searchbtnHide">
+			<input type="text" id="sstext" /><input type="button" value="搜索" onclick="sscx()" /></br>
+		</span>
+		<!-- 结果显示框，待修改样式 -->
+		<div id="tab">
+			<table border="1">
+			</table>
+			<table border="1" id="tab1" class="table">
+			</table>
+		</div>
 
 	</body>
 	<!-- map -->
-	
+
 	<script type="text/javascript" src="javascripts/map.js"></script>
 	<script type="text/javascript" src="javascripts/measure.js"></script>
 	<script type="text/javascript" src="javascripts/camera.js"></script>
-	<script type="text/javascript" src="javascripts/LineBuffer.js"></script>	
+	<script type="text/javascript" src="javascripts/LineBuffer.js"></script>
+	<script type="text/javascript" src="javascripts/search.js"></script>
+	<script type="text/javascript" src="javascripts/update.js"></script>
+	<script type="text/javascript" src="javascripts/addEvent.js"></script>
+
+
 
 </html>
 </html>

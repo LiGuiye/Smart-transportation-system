@@ -6,6 +6,24 @@
 	z-index: -1;
 }
 
+.modal-body td{
+/* 	font-family: Heiti;
+	font-weight: block;
+	text-align: center;
+	font-size: 15px;
+	padding-top: 5px;
+	border:1px solid black; */
+	padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+.modal-body td select{
+	height: 18px;
+	
+}
+
+
 /* 自定义鼠标位置控件位置样式 */
 #mouse-position {
 	position: absolute;

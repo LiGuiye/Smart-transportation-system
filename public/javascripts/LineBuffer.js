@@ -1,13 +1,13 @@
 /*==========================================底图显示===================================================*/
-var vectorLayer;
 var linshilujing;
 var linshilujing1;
 //缓存结果图层的基地址
 var resultBaseUrl = "gdbp://MapGisLocal/wuhan/sfcls/";
 /*============================================区域绘制===================================================*/
+//绘制对象
+var linedraw;
 function addplogon() {
-	//绘制对象
-	var draw;
+	
 	//实例化一个矢量图层Vector作为绘制层
 	var source = new ol.source.Vector({
 		wrapX: false
@@ -33,7 +33,7 @@ function addplogon() {
 	vector.setSource(source);
 	var geometryFunction, maxPoints;
 	//实例化交互绘制类对象并添加到地图容器中
-	draw = new ol.interaction.Draw({
+	linedraw = new ol.interaction.Draw({
 		//绘制层数据源
 		source: source,
 		type: "Polygon",
@@ -43,7 +43,7 @@ function addplogon() {
 		maxPoints: maxPoints
 	});
 
-	draw.on('drawend', function(e) {
+	linedraw.on('drawend', function(e) {
 		coordinates_Polygon = e.feature.getGeometry().getCoordinates();
 		var pointObj = new Array();
 		for (var i = 0; i < coordinates_Polygon[0].length; i++) {
@@ -52,7 +52,7 @@ function addplogon() {
 		newback1(pointObj);
 
 	});
-	map.addInteraction(draw);
+	map.addInteraction(linedraw);
 
 	function newback1(point) {
 		//设置区要素的几何信息
@@ -119,6 +119,7 @@ function addplogon() {
 		editDocFeature.add(featureSet, onPloySuccess);
 	};
 }
+
 function onPloySuccess(rlt) {
 	var result = rlt;
 	if (result) {
@@ -206,6 +207,7 @@ function singleBuffAnalysis(anaType) {
 	//调用基类Zondy.Service.AnalysisBase的execute方法执行类缓冲分析，AnalysisSuccess为回调函数
 	clsBufBySR.execute(singleBuffAnalysisSuccess, "post", false, "json", AnalysisError);
 }
+
 function singleBuffAnalysisSuccess(data) {
 	//停止进度条
 	stopPressBar();
@@ -253,7 +255,7 @@ function clearA() {
 	if (map.getLayers().array_.length > 1) {
 		var i = map.getLayers().array_.length - 1;
 		map.removeLayer(map.getLayers().array_[i]);
-		map.removeInteraction(draw);
+		map.removeInteraction(linedraw);
 	} else
 		return;
 }

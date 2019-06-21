@@ -60,7 +60,7 @@ $(function() {
 
 	measureSource = new ol.source.Vector();
 	var measureLayer = new ol.layer.Vector({
-		// crossOrigin: "Anonymous",
+		crossOrigin: "Anonymous",
 		source: measureSource,
 		style: new ol.style.Style({ //图层样式
 			fill: new ol.style.Fill({
@@ -129,14 +129,13 @@ $(function() {
 			document.getElementById("lukuang").className = "showLukuang";
 		}
 	}
-
+	//统计图
 	document.getElementById("chart").onclick = function() {
-
 		document.getElementById("myModalLabel").innerText = "事件统计图";
 		document.getElementById("container").innerText = "";
 		toechart();
 	}
-
+	//热力图
 	document.getElementById("heatMap").onclick = function() {
 		if (document.getElementById("heatMap").className == "showLukuang") {
 			map.removeLayer(heatmapVector);
@@ -146,7 +145,7 @@ $(function() {
 			document.getElementById("heatMap").className = "showLukuang";
 		}
 	}
-	
+	//摄像头
 	document.getElementById("camera").onclick = function() {
 		if (document.getElementById("camera").className == "showLukuang") {
 			cameraClose();
@@ -154,6 +153,54 @@ $(function() {
 		} else {
 			cameraOpen();
 			document.getElementById("camera").className = "showLukuang";
+		}
+	}
+	//周边查询
+	document.getElementById("zbcx").onclick = function() {
+		if (document.getElementById("zbcx").className == "showLukuang") {
+			zbcxClose();
+			
+			document.getElementById("zbcx").className = "hideLukuang";
+		} else {
+			zbcxBegin();
+			document.getElementById("zbcx").className = "showLukuang";
+		}
+	}
+	//模糊查询
+	document.getElementById("searchbtn").style.zIndex = -222;
+	document.getElementById("tab").style.zIndex = -9999;
+	document.getElementById("sscx").onclick = function() {
+		if (document.getElementById("sscx").className == "showLukuang") {
+			//搜索框和属性表隐藏
+			zbcxClose();
+			//标签栏样式
+			document.getElementById("sscx").className = "hideLukuang";
+		} else {
+			//标签栏样式
+			document.getElementById("searchbtn").style.zIndex = 222;
+
+			document.getElementById("sscx").className = "showLukuang";
+		}
+	}
+	
+	//事件更新
+	document.getElementById("update").onclick = function() {
+		if (document.getElementById("update").className == "showLukuang") {
+			updateStop();
+			document.getElementById("update").className = "hideLukuang";
+		} else {
+			updateBegin();
+			document.getElementById("update").className = "showLukuang";
+		}
+	}
+	//添加事件addEvent
+	document.getElementById("addEvent").onclick = function() {
+		if (document.getElementById("addEvent").className == "showLukuang") {
+			addEventClose();
+			document.getElementById("addEvent").className = "hideLukuang";
+		} else {
+			addEvent();
+			document.getElementById("addEvent").className = "showLukuang";
 		}
 	}
 
@@ -193,6 +240,7 @@ function getInfoError(data) {
 //添加地图文档至底图
 function addMapDoc(val) {
 	mapdoc = new Zondy.Map.Doc(val, val, {
+		crossOrigin: "Anonymous",
 		ip: ip,
 		port: port,
 		crossOrigin: "Anonymous",
@@ -261,7 +309,6 @@ function removeSelect(arry, val) {
 	}
 	return arry;
 };
-
 //实时路况
 function lukuang() {
 		lukuangLayer = new Zondy.Map.Layer('', ['gdbp://MapGisLocal/wuhan/sfcls/new实时路况'], {
@@ -277,11 +324,9 @@ function lukuang() {
 	lukuangLayer.refresh();
 
 }
-
 function removeLukuang() {
 	map.removeLayer(lukuangLayer);
 }
-
 function selectLine() {
 	$.ajax({
 		url: "/suoyou",
@@ -291,7 +336,6 @@ function selectLine() {
 		}
 	});
 }
-
 function ajaxSuccess(data) {
 	var path = [];
 	var point = [];
@@ -311,10 +355,10 @@ function ajaxSuccess(data) {
 		addLine(path[i], datetimes[i], road[i], vehicleflow[i]);
 	}
 }
-
 function deleteLine() {
 	//执行删除要素操作
 	var deleteService = new Zondy.Service.EditLayerFeature("gdbp://MapGisLocal/wuhan/sfcls/new实时路况", {
+		crossOrigin: "Anonymous",
 		ip: ip,
 		port: port
 	});
@@ -384,6 +428,7 @@ function addLine(pointArry, datetimes, road, vehicleflow) {
 	featureSet.addFeature(newFeature);
 	//创建一个图层编辑对象
 	var editLayerFeature = new Zondy.Service.EditLayerFeature("gdbp://MapGisLocal/wuhan/sfcls/new实时路况", {
+		crossOrigin: "Anonymous",
 		ip: ip,
 		port: port
 	});

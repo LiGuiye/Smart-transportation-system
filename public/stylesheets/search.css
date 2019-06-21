@@ -1,0 +1,27 @@
+
+#searchbtn {
+	top: 150px;
+	right: 50px;
+	position: absolute;
+	background-color: white;
+	border-radius: 8px;
+	padding: 10px;
+	opacity: 0.75;
+}
+
+#tab {
+	width:900px;
+	height: 200px;
+	bottom: 0px;
+	position: absolute;
+	margin-left: 200px;
+	background-color: white;
+	opacity: 1;
+	overflow: auto;
+}
+
+td {
+	width: 130px;
+	height: 10px;
+	text-align: center;
+}
