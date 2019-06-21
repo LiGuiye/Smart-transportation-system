@@ -546,6 +546,7 @@ function heatmap() {
 		struct: queryStruct
 	});
 	queryParam.where = "事件等级>0";
+	queryParam.recordNumber = 100;
 	//实例化地图文档查询服务对象
 	var queryService = new Zondy.Service.QueryDocFeature(queryParam, "光谷智慧交通", 3, {
 		ip: ip,
